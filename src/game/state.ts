@@ -1,34 +1,24 @@
 /** Game State */
 export interface GameState {
-  // Pieces available in the bank for play
-  bank: {[id: string]: number};
-  homeworlds: {[playerId: string]: string};
-  stars: {[id: string]: StarSystem};
-  ships: {[id: string]: Ship}
+  arousal: number;
+  hisGrip: number;
+  hisOrgasm: number;
+
+  herArousal: number;
+  herBreath: number;
+  herOrgasm: number;
+
+  depth: number;
 }
 
-interface StarSystem {
-  id: string;
-  piece: Piece;
-}
+export const initialState: GameState = {
+  arousal: 0,
+  hisGrip: 0,
+  hisOrgasm: 0,
 
-interface Ship {
-  id: string;
-  piece: Piece;
-  // Player ID who controls this ship
-  player: string;
-  // Star ID this ship is orbiting
-  location: string;
-}
+  herArousal: 0,
+  herBreath: 100,
+  herOrgasm: 0,
 
-interface Piece {
-  color: Color;
-  size: number;
-}
-
-enum Color {
-  RED = 'red',
-  GREEN = 'green',
-  BLUE = 'blue',
-  YELLOW = 'yellow',
-}
+  depth: 0,
+};
