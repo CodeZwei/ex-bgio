@@ -41,7 +41,8 @@ export function CumMouth(G: GameState): string|undefined {
   }
 
   G.hisOrgasm -= 1;
-  G.log.push('He releases a jet of cum into her mouth.');
+  G.cumInMouth += 1;
+  G.log.push('*CUM* He releases a jet of cum into her mouth.');
   return;
 }
 
@@ -51,7 +52,8 @@ export function CumThroat(G: GameState): string|undefined {
   }
 
   G.hisOrgasm -= 1;
-  G.log.push('He shoots a rope of cum down her throat.');
+  G.cumInMouth += 1;
+  G.log.push('*CUM* He shoots a rope of cum down her throat.');
   return;
 }
 
@@ -61,7 +63,7 @@ export function CumFace(G: GameState): string|undefined {
   }
 
   G.hisOrgasm -= 1;
-  G.log.push('He shoots strings of cum across her face.');
+  G.log.push('*CUM* He shoots strings of cum across her face.');
   return;
 }
 
@@ -71,6 +73,6 @@ export function CumTits(G: GameState): string|undefined {
   }
 
   G.hisOrgasm -= 1;
-  G.log.push('He spurts cum all over her tits.');
+  G.log.push('*CUM* He spurts cum all over her tits.');
   return;
 }

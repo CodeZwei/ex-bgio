@@ -82,11 +82,17 @@ export const ExDT: Game<GameState, Ctx, undefined> = {
             {move: 'Rub'},
           ];
         } else if (ctx.phase === 'orgasm') {
-          return [
+          const moves = [
             {move: 'Finger'},
             {move: 'Rub'},
-            {move: 'Swallow'},
+            {move: 'Wait'},
           ];
+
+          if (G.cumInMouth > 0) {
+            moves.push({move: 'Swallow'});
+          }
+
+          return moves;
         }
       } else {
         // Dom

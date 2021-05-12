@@ -42,13 +42,14 @@ export function Rub(G: GameState): string|undefined {
 }
 
 export function Swallow(G: GameState): string|undefined {
-  if (G.hisOrgasm <= 0) {
+  if (G.hisOrgasm <= 0 || G.cumInMouth <= 0) {
     return INVALID_MOVE;
   }
 
   G.arousal += 6;
   G.herArousal += 4;
   G.herBreath -= 5;
-  G.log.push('Veronica swallow a load of cum.');
+  G.cumInMouth = 0;
+  G.log.push('*GULP* Veronica swallow a load of cum.');
   return;
 }

@@ -7,6 +7,7 @@ export interface GameState {
   herArousal: number;
   herBreath: number;
   herOrgasm: number;
+  cumInMouth: number;
 
   depth: number;
 
@@ -21,6 +22,7 @@ export const initialState: GameState = {
   herArousal: 0,
   herBreath: 100,
   herOrgasm: 0,
+  cumInMouth: 0,
 
   depth: 0,
 
