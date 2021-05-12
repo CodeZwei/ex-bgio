@@ -9,6 +9,8 @@ export interface GameState {
   herOrgasm: number;
 
   depth: number;
+
+  log: string[];
 }
 
 export const initialState: GameState = {
@@ -21,4 +23,6 @@ export const initialState: GameState = {
   herOrgasm: 0,
 
   depth: 0,
+
+  log: ['Veronica sits on her knees staring up at the cock infront of her.'],
 };

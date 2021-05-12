@@ -4,7 +4,7 @@
 
 <main>
   <h1>Ex DT</h1>
-  <Board playerID="0" />
+  <!-- <Board playerID="0" /> -->
   <Board playerID="1" />
 </main>
 

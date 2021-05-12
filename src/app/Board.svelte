@@ -11,7 +11,7 @@
     playerID,
     debug: { impl: Debug },
     numPlayers: 2,
-    multiplayer: Local(),
+    // multiplayer: Local(),
   });
 
   client.start();
@@ -26,14 +26,25 @@
   <table id="board">
     <tbody>
       <tr>
-        <td class="cell" on:click={() => client.moves.kiss()}> Kiss </td>
-        <td class="cell" on:click={() => client.moves.grab()}> Grab </td>
-        <td class="cell" on:click={() => client.moves.thrust()}> Thrust </td>
-        <td class="cell" on:click={() => client.moves.deeper()}> Deeper </td>
-        <td class="cell" on:click={() => client.moves.shallow()}>
+        <td class="cell" on:click={() => client.moves.Kiss()}> Kiss </td>
+        <td class="cell" on:click={() => client.moves.Grab()}> Grab </td>
+        <td class="cell" on:click={() => client.moves.Thrust()}> Thrust </td>
+        <td class="cell" on:click={() => client.moves.Deeper()}> Deeper </td>
+        <td class="cell" on:click={() => client.moves.Shallow()}>
           Shallower
         </td>
       </tr>
+      {#if $client.ctx.phase === "orgasm"}
+        <tr>
+          <td>Cum</td>
+          <td class="cell" on:click={() => client.moves.CumMouth()}> Mouth </td>
+          <td class="cell" on:click={() => client.moves.CumThroat()}>
+            Throat
+          </td>
+          <td class="cell" on:click={() => client.moves.CumFace()}> Face </td>
+          <td class="cell" on:click={() => client.moves.CumTits()}> Tits </td>
+        </tr>
+      {/if}
     </tbody>
   </table>
   Arousal: {$client.G.arousal}
@@ -46,6 +57,11 @@
   Orgasm: {$client.G.herOrgasm}
   {#if winner}
     <div id="winner">Winner: {winner}</div>
+  {/if}
+  {#if playerID === "1"}
+    {#each $client.G.log as msg}
+      <div>{msg}</div>
+    {/each}
   {/if}
 </div>
 
