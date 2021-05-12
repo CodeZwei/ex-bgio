@@ -59,9 +59,11 @@
     <div id="winner">Winner: {winner}</div>
   {/if}
   {#if playerID === "1"}
-    {#each $client.G.log as msg}
-      <div>{msg}</div>
-    {/each}
+    <div class="logs">
+      {#each $client.G.log as msg}
+        <div>{msg}</div>
+      {/each}
+    </div>
   {/if}
 </div>
 
@@ -76,5 +78,10 @@
     fontfamily: monospace;
     fontsize: 20px;
     fontweight: bold; */
+  }
+
+  .logs {
+    height: 300px;
+    overflow-y: scroll;
   }
 </style>

@@ -1,5 +1,17 @@
 import type {Ctx, Game} from 'boardgame.io';
 import {GameState, initialState} from './state';
+import {
+  Wait,
+  Grab,
+  Thrust,
+  Deeper,
+  Shallow,
+  CumMouth,
+  CumThroat,
+  CumFace,
+  CumTits,
+} from './dom-moves';
+import {Kiss, Lick, Finger, Rub, Swallow} from './sub-moves';
 
 function reset(): GameState {
   return {...initialState};
@@ -8,7 +20,7 @@ function reset(): GameState {
 export const ExDT: Game<GameState, Ctx, undefined> = {
   setup: () => reset(),
 
-  moves: {Kiss, Grab, Thrust, Deeper, Shallow},
+  moves: {Wait},
 
   turn: {
     moveLimit: 1,
@@ -16,17 +28,38 @@ export const ExDT: Game<GameState, Ctx, undefined> = {
 
   phases: {
     initial: {
-      moves: {Kiss, Grab, Thrust, Deeper, Shallow},
+      moves: {
+        Wait,
+        Grab,
+        Thrust,
+        Deeper,
+        Shallow,
+        Kiss,
+        Lick,
+        Finger,
+        Rub,
+      },
       start: true,
       next: 'orgasm',
       endIf: (G) => G.arousal >= 20,
     },
     orgasm: {
-      onBegin: (G, ctx) => {
+      onBegin: (G) => {
         G.hisOrgasm = 6;
         G.log.push('He reaches a climax!');
       },
-      moves: {Thrust, Deeper, Shallow, CumMouth, CumThroat, CumFace, CumTits},
+      moves: {
+        Thrust,
+        Deeper,
+        Shallow,
+        CumMouth,
+        CumThroat,
+        CumFace,
+        CumTits,
+        Finger,
+        Rub,
+        Swallow,
+      },
     },
   },
 
@@ -38,69 +71,46 @@ export const ExDT: Game<GameState, Ctx, undefined> = {
   },
 
   ai: {
-    enumerate: (G) => {
-      const moves = [
-        {move: 'Kiss'},
-        {move: 'Thrust'},
-        {move: 'Deeper'},
-        {move: 'Shallower'},
-      ];
-      return moves;
+    enumerate: (G, ctx, playerId) => {
+      if (playerId === '1') {
+        // Submissive
+        if (ctx.phase === 'initial') {
+          return [
+            {move: 'Kiss'},
+            {move: 'Lick'},
+            {move: 'Finger'},
+            {move: 'Rub'},
+          ];
+        } else if (ctx.phase === 'orgasm') {
+          return [
+            {move: 'Finger'},
+            {move: 'Rub'},
+            {move: 'Swallow'},
+          ];
+        }
+      } else {
+        // Dom
+        if (ctx.phase === 'initial') {
+          return [
+            {move: 'Wait'},
+            {move: 'Wait'},
+            {move: 'Grab'},
+            {move: 'Thrust'},
+            {move: 'Deeper'},
+            {move: 'Shallow'},
+          ];
+        } else if (ctx.phase === 'orgasm') {
+          return [
+            {move: 'Thrust'},
+            {move: 'Deeper'},
+            {move: 'Shallow'},
+            {move: 'CumMouth'},
+            {move: 'CumThroat'},
+            {move: 'CumFace'},
+            {move: 'CumTits'},
+          ];
+        }
+      }
     },
   },
 };
-
-// Moves
-
-function Kiss(G: GameState): void {
-  G.arousal += 3;
-  G.herArousal += 2;
-  G.herBreath = Math.min(100, G.herBreath + 20);
-  G.depth = 0;
-  G.log.push('Veronica softly kisses the tip of his cock.');
-  return;
-}
-
-function Grab(G: GameState): void {
-  G.hisGrip = 1;
-  G.log.push('He grabs Veronica\'s head with both hands.');
-}
-
-function Thrust(G: GameState): void {
-  G.arousal += 2 * G.depth;
-  G.herArousal += 1 * G.depth;
-  G.herBreath -= 1 * G.depth;
-  G.log.push('He thrusts into Veronica\s mouth.');
-}
-
-function Deeper(G: GameState): void {
-  G.depth = Math.min(4, G.depth + 1);
-  G.log.push('He pushes his cock deeper into her throat.');
-}
-
-function Shallow(G: GameState): void {
-  G.depth = Math.max(0, G.depth - 1);
-  G.log.push('He pulls his cock less deep in her mouth.');
-}
-
-// Orgasm Phase
-
-function CumMouth(G: GameState): void {
-  G.hisOrgasm -= 1;
-  G.log.push('He releases a jet of cum into her mouth.');
-}
-
-function CumThroat(G: GameState): void {
-  G.hisOrgasm -= 1;
-  G.log.push('He shoots a rope of cum down her throat.');
-}
-
-function CumFace(G: GameState): void {
-  G.hisOrgasm -= 1;
-  G.log.push('He shoots strings of cum across her face.');
-}
-
-function CumTits(G: GameState): void {
-  G.hisOrgasm -= 1;
-  G.log.push('He spurts cum all over her tits.');
-}
